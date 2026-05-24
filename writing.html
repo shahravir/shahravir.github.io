@@ -7,12 +7,13 @@
   <title>Writing — Ravi Shah · Agentic Engineering</title>
   <meta name="description" content="Articles by Ravi Shah on agentic engineering, context engineering, shift-left security, and Financial Services digital transformation. Medium and DEV.">
   <link rel="canonical" href="https://shahravir.github.io/writing.html">
-  <meta name="theme-color" content="#0c1117">
+  <meta name="theme-color" content="#f4f6fb">
+  <meta property="og:image" content="https://shahravir.github.io/images/og-card.svg">
   <meta property="og:title" content="Writing — Ravi Shah">
   <meta property="og:description" content="Agentic patterns, context engineering, and shift-left security for Financial Services.">
   <meta property="og:url" content="https://shahravir.github.io/writing.html">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,17 +39,31 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="site-nav" aria-label="Site">
-      <a class="brand" href="/">Ravi Shah</a>
-      <a href="/">Home</a>
-      <a href="/writing.html" aria-current="page">Writing</a>
-      <a href="/projects.html">Projects</a>
-    </nav>
+    <div class="site-header-inner">
+      <nav class="site-nav" aria-label="Site">
+        <a class="brand" href="/">Ravi Shah</a>
+        <a href="/">Home</a>
+        <a href="/writing.html" aria-current="page">Writing</a>
+        <a href="/projects.html">Projects</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <h1 class="page-title">Writing</h1>
-    <p class="page-intro">Practical notes from building with agents in Financial Services — patterns, security, and delivery at scale.</p>
+    <div class="page-hero profile-wrap">
+      <img
+        class="profile-photo"
+        src="/images/profile-placeholder.svg"
+        data-photo="/images/profile.jpg"
+        alt="Ravi Shah"
+        width="120"
+        height="120"
+        decoding="async">
+      <div class="page-hero-text">
+        <h1 class="page-title">Writing</h1>
+        <p class="page-intro">Practical notes from building with agents in Financial Services — patterns, security, and delivery at scale.</p>
+      </div>
+    </div>
 
     <section aria-labelledby="topics-heading">
       <h2 id="topics-heading">Topics I write about</h2>
@@ -64,7 +79,7 @@
 
     <section aria-labelledby="channels-heading">
       <h2 id="channels-heading">Where to read</h2>
-      <ul class="card-grid">
+      <ul class="card-grid card-grid--2">
         <li class="card">
           <h3><a href="https://medium.com/@shah.ravir">Medium — @shah.ravir</a></h3>
           <p>Long-form articles on agentic patterns, IBM Project Bob, and security in the PR loop. Primary channel for deep dives.</p>
@@ -84,7 +99,10 @@
   </main>
 
   <footer class="site-footer">
-    <p><a href="/">Home</a> · <a href="/projects.html">Projects</a> · <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a></p>
+    <div class="site-footer-inner">
+      <p><a href="/">Home</a> · <a href="/projects.html">Projects</a> · <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a></p>
+    </div>
   </footer>
+  <script src="/profile.js" defer></script>
 </body>
 </html>
