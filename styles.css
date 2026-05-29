@@ -433,6 +433,17 @@ ul.plain li {
   margin: 0;
 }
 
+.medium-posts-loading {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 1rem 0;
+}
+
+.medium-posts-footer {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
