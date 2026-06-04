@@ -7,8 +7,7 @@
   <title>Ravi Shah — Agentic Engineering · Financial Services</title>
   <meta name="description" content="Ravi Shah — Executive Architect at IBM Consulting UKI. Agentic engineering, Financial Services transformation, hybrid cloud, and open-source tools for developers.">
   <link rel="canonical" href="https://shahravir.github.io/">
-  <meta name="theme-color" content="#f4f6fb">
-  <!-- Social preview: add images/og-card.jpg (1200×630), then switch og:image to that path -->
+  <meta name="theme-color" content="#161616">
   <meta property="og:image" content="https://shahravir.github.io/images/og-card.svg">
   <meta property="og:title" content="Ravi Shah — Agentic Engineering · Financial Services">
   <meta property="og:description" content="Personal hub for writing, code, and talks on agentic engineering in Financial Services.">
@@ -21,7 +20,7 @@
   <meta name="twitter:description" content="Writing, open-source projects, and talks on agentic engineering in Financial Services.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">
   {
@@ -34,23 +33,9 @@
         "image": "https://shahravir.github.io/images/profile.jpg",
         "url": "https://shahravir.github.io/",
         "jobTitle": "Executive Architect",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "IBM Consulting"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "London",
-          "addressCountry": "GB"
-        },
-        "knowsAbout": [
-          "Agentic engineering",
-          "Financial services digital transformation",
-          "Hybrid cloud",
-          "API platforms",
-          "Model Context Protocol",
-          "Shift-left security"
-        ],
+        "worksFor": { "@type": "Organization", "name": "IBM Consulting" },
+        "address": { "@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB" },
+        "knowsAbout": ["Agentic engineering", "Financial services digital transformation", "Hybrid cloud", "Model Context Protocol", "Shift-left security"],
         "sameAs": [
           "https://www.linkedin.com/in/ravishah01/",
           "https://github.com/shahravir",
@@ -72,101 +57,146 @@
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="site-header-inner">
-      <nav class="site-nav" aria-label="Site">
-        <a class="brand" href="/">Ravi Shah</a>
-        <a href="/" aria-current="page">Home</a>
-        <a href="/writing.html">Writing</a>
-        <a href="/projects.html">Projects</a>
-      </nav>
-    </div>
-  </header>
+  <nav class="nav" aria-label="Site">
+    <a href="/" class="nav-logo">
+      <div class="ibm-logo" aria-hidden="true">
+        <div class="ibm-bar b1"></div><div class="ibm-bar b2"></div>
+        <div class="ibm-bar b3"></div><div class="ibm-bar b4"></div>
+        <div class="ibm-bar b5"></div>
+      </div>
+      <div class="nav-brand">Ravi Shah<strong>Agentic Engineering · Financial Services</strong></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#focus">Focus</a></li>
+      <li><a href="#explore">Explore</a></li>
+      <li><a href="/writing.html">Writing</a></li>
+      <li><a href="/projects.html">Projects</a></li>
+      <li><a href="#connect" class="nav-accent">Connect</a></li>
+    </ul>
+    <a class="nav-cta" href="https://www.linkedin.com/in/ravishah01/">Connect ↗</a>
+  </nav>
 
-  <main>
-    <!--
-      PHOTOS: Drop files in /images/ then update the img src below.
-      • profile.jpg — square headshot, 400×400+ (same as LinkedIn/GitHub)
-      • og-card.jpg — link preview, 1200×630 (then set og:image to og-card.jpg in <head>)
-    -->
-    <div class="hero">
-      <div class="hero-panel">
-        <div class="profile-wrap">
-          <img
-            class="profile-photo"
-            src="/images/profile-placeholder.svg"
-            data-photo="/images/profile.jpg"
-            alt="Ravi Shah"
-            width="320"
-            height="320"
-            decoding="async">
-          <p class="profile-caption">Replace with <code>images/profile.jpg</code></p>
-        </div>
-        <div class="hero-content">
-          <p class="eyebrow">Executive Architect · IBM Consulting UKI</p>
-          <h1>Ravi Shah</h1>
-          <p class="tagline">Agentic engineering for Financial Services — I build software <em>with</em> agents and ship agentic capability <em>into</em> production systems.</p>
-          <p class="disclaimer">Personal site. Views are my own and do not represent IBM.</p>
-          <div class="cta-row">
-            <a class="btn btn-primary" href="https://www.linkedin.com/in/ravishah01/">Connect on LinkedIn</a>
-            <a class="btn btn-secondary" href="https://github.com/shahravir">GitHub</a>
-          </div>
-          <div class="social-row" aria-label="Profiles">
-            <a href="https://medium.com/@shah.ravir">Medium</a>
-            <a href="https://dev.to/shahravir">DEV</a>
-          </div>
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Executive Architect · IBM Consulting UKI · 2026</div>
+      <h1 class="hero-title">Ravi Shah<strong>Agentic engineering for Financial Services</strong></h1>
+      <p class="hero-sub">I build software with agents and ship agentic capability into production systems — patterns, security, and delivery at scale.</p>
+      <p class="hero-disclaimer">Personal site. Views are my own and do not represent IBM.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn-p" data-scroll="explore">Explore the hub →</button>
+        <a class="btn-o" href="/writing.html">Latest writing ↗</a>
+      </div>
+      <div class="hero-social" aria-label="Profiles">
+        <a href="https://medium.com/@shah.ravir">Medium</a>
+        <a href="https://dev.to/shahravir">DEV</a>
+        <a href="https://github.com/shahravir">GitHub</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="focus" class="section-band">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="s-label">Focus areas</div>
+        <h2 class="s-title">What I <strong>work on</strong></h2>
+        <p class="s-desc">One hub for writing, open-source demos, and talks — practical agentic patterns for regulated industries.</p>
+        <ul class="topics">
+          <li>Agentic engineering</li>
+          <li>Context engineering</li>
+          <li>Hybrid cloud &amp; APIs</li>
+          <li>Shift-left security</li>
+          <li>MCP &amp; developer tooling</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="explore" class="section-dark">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="s-label">Explore</div>
+        <h2 class="s-title">Writing, code, and <strong>speaking</strong></h2>
+        <p class="s-desc">Jump to the channel that fits — articles, repositories, or event summaries.</p>
+        <div class="pillars-main">
+          <article class="pillar-card">
+            <div class="pillar-hdr">
+              <div class="pillar-tag">Writing</div>
+              <h3 class="pillar-title"><a href="/writing.html">Articles &amp; essays</a></h3>
+            </div>
+            <div class="pillar-body">
+              <p class="pillar-desc">Agentic patterns, context engineering, and shift-left security — on Medium, LinkedIn, and DEV.</p>
+              <a class="pillar-link" href="/writing.html">All articles →</a>
+            </div>
+          </article>
+          <article class="pillar-card">
+            <div class="pillar-hdr">
+              <div class="pillar-tag">Projects</div>
+              <h3 class="pillar-title"><a href="/projects.html">Open source</a></h3>
+            </div>
+            <div class="pillar-body">
+              <p class="pillar-desc">Security scanning agents, FS advisory prototypes, and full-stack reference apps you can run and extend.</p>
+              <a class="pillar-link" href="/projects.html">Repositories →</a>
+            </div>
+          </article>
+          <article class="pillar-card">
+            <div class="pillar-hdr">
+              <div class="pillar-tag">Speaking</div>
+              <h3 class="pillar-title"><a href="https://www.linkedin.com/in/ravishah01/">Talks &amp; panels</a></h3>
+            </div>
+            <div class="pillar-body">
+              <p class="pillar-desc">AWS European FSI Industry Analyst Summit (2024) · IBM UKI Chief Architects — engineering culture (2026).</p>
+              <a class="pillar-link" href="https://www.linkedin.com/in/ravishah01/">LinkedIn →</a>
+            </div>
+          </article>
         </div>
       </div>
     </div>
+  </section>
 
-    <section aria-labelledby="focus-heading">
-      <h2 id="focus-heading">Focus areas</h2>
-      <ul class="topics">
-        <li>Agentic engineering</li>
-        <li>Context engineering</li>
-        <li>Hybrid cloud &amp; APIs</li>
-        <li>Shift-left security</li>
-        <li>MCP &amp; developer tooling</li>
-      </ul>
-      <p class="lead">This hub links my writing, open-source work, and speaking — one place to follow agentic patterns for regulated industries.</p>
-    </section>
-
-    <section aria-labelledby="explore-heading">
-      <h2 id="explore-heading">Explore</h2>
-      <ul class="card-grid card-grid--2">
-        <li class="card">
-          <h3><a href="/writing.html">Writing</a></h3>
-          <p>Articles on agentic patterns, context engineering, and shift-left security — on Medium and DEV.</p>
-        </li>
-        <li class="card">
-          <h3><a href="/projects.html">Projects</a></h3>
-          <p>Open-source demos: security scanning agents, FS advisory prototypes, and full-stack reference apps.</p>
-        </li>
-        <li class="card">
-          <h3><a href="https://www.linkedin.com/in/ravishah01/">Speaking &amp; panels</a></h3>
-          <p>AWS European FSI Industry Analyst Summit (2024) · IBM UKI Chief Architects — engineering culture (2026).</p>
-        </li>
-      </ul>
-    </section>
-
-    <section aria-labelledby="highlight-heading">
-      <h2 id="highlight-heading">Highlighted project</h2>
-      <ul class="card-grid">
-        <li class="card">
+  <section id="highlight" class="section-band">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="s-label">Featured work</div>
+        <h2 class="s-title">Highlighted <strong>project</strong></h2>
+        <p class="s-desc">Shift-left security for the agentic era — scan in the PR loop, not at the pipeline gate.</p>
+        <div class="feature-card">
           <h3><a href="https://github.com/shahravir/gitleaks-repo-scan-agent">gitleaks-repo-scan-agent</a></h3>
-          <p>AI agent skill for Gitleaks secret scans in Cursor, Copilot CLI, and CI — shift-left security for the agentic era.</p>
-          <p class="meta"><a href="/projects.html">All projects →</a></p>
-        </li>
-      </ul>
-    </section>
-  </main>
+          <p>AI agent skill for Gitleaks secret scans in Cursor, Copilot CLI, and CI — interprets findings and guides remediation.</p>
+          <a class="pillar-link" href="/projects.html">All projects →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="connect" class="section-dark">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="connect-panel">
+          <h2>Stay in the loop</h2>
+          <p>Follow writing on Medium or DEV, or connect on LinkedIn for new posts and talks.</p>
+          <a class="btn-p" href="https://www.linkedin.com/in/ravishah01/">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <p>Best contact: <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a> · <a href="/writing.html">Writing</a> · <a href="/projects.html">Projects</a></p>
+      <p><a href="/writing.html">Writing</a> · <a href="/projects.html">Projects</a> · <a href="https://github.com/shahravir">GitHub</a> · <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a></p>
+      <p class="footer-note">Personal site — views are my own and do not represent IBM.</p>
     </div>
   </footer>
 
+  <script src="/hero.js" defer></script>
+  <script src="/hub.js" defer></script>
   <script src="/profile.js" defer></script>
 </body>
 </html>

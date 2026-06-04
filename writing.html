@@ -7,7 +7,7 @@
   <title>Writing — Ravi Shah · Agentic Engineering</title>
   <meta name="description" content="All articles by Ravi Shah on agentic engineering, context engineering, MCP, and Financial Services — on Medium and LinkedIn.">
   <link rel="canonical" href="https://shahravir.github.io/writing.html">
-  <meta name="theme-color" content="#f4f6fb">
+  <meta name="theme-color" content="#161616">
   <meta property="og:image" content="https://shahravir.github.io/images/og-card.svg">
   <meta property="og:title" content="Writing — Ravi Shah">
   <meta property="og:description" content="Agentic patterns, context engineering, and shift-left security for Financial Services.">
@@ -16,7 +16,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">
   {
@@ -38,32 +38,38 @@
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="site-header-inner">
-      <nav class="site-nav" aria-label="Site">
-        <a class="brand" href="/">Ravi Shah</a>
-        <a href="/">Home</a>
-        <a href="/writing.html" aria-current="page">Writing</a>
-        <a href="/projects.html">Projects</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <div class="page-hero profile-wrap">
-      <img
-        class="profile-photo"
-        src="/images/profile-placeholder.svg"
-        data-photo="/images/profile.jpg"
-        alt="Ravi Shah"
-        width="120"
-        height="120"
-        decoding="async">
-      <div class="page-hero-text">
-        <h1 class="page-title">Writing</h1>
-        <p class="page-intro">Practical notes from building with agents in Financial Services — patterns, security, and delivery at scale.</p>
+  <nav class="nav" aria-label="Site">
+    <a href="/" class="nav-logo">
+      <div class="ibm-logo" aria-hidden="true">
+        <div class="ibm-bar b1"></div><div class="ibm-bar b2"></div>
+        <div class="ibm-bar b3"></div><div class="ibm-bar b4"></div>
+        <div class="ibm-bar b5"></div>
       </div>
+      <div class="nav-brand">Ravi Shah<strong>Agentic Engineering · Financial Services</strong></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#focus">Focus</a></li>
+      <li><a href="/#explore">Explore</a></li>
+      <li><a href="/writing.html" aria-current="page">Writing</a></li>
+      <li><a href="/projects.html">Projects</a></li>
+    </ul>
+    <a class="nav-cta" href="https://www.linkedin.com/in/ravishah01/">Connect ↗</a>
+  </nav>
+
+  <section id="hero" class="page-hero-compact">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Writing</div>
+      <h1 class="hero-title">Practical notes on<strong>agentic delivery</strong></h1>
+      <p class="hero-sub">Patterns, security, and context engineering from building with agents in Financial Services.</p>
     </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <main class="page-main">
+    <div class="section-wrap">
 
     <section aria-labelledby="topics-heading">
       <h2 id="topics-heading">Topics I write about</h2>
@@ -151,13 +157,17 @@
       <p class="lead">Follow on <a href="https://medium.com/@shah.ravir">Medium</a> or <a href="https://dev.to/shahravir">DEV</a>, or connect on <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a> where I share new posts and talks.</p>
       <p><a href="/">← Back to hub</a></p>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <p><a href="/">Home</a> · <a href="/projects.html">Projects</a> · <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a></p>
+      <p><a href="/">Home</a> · <a href="/projects.html">Projects</a> · <a href="https://github.com/shahravir">GitHub</a> · <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a></p>
+      <p class="footer-note">Personal site — views are my own and do not represent IBM.</p>
     </div>
   </footer>
+  <script src="/hero.js" defer></script>
+  <script src="/hub.js" defer></script>
   <script src="/profile.js" defer></script>
 </body>
 </html>
