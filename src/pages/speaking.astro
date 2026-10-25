@@ -1,0 +1,98 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { BIO, SITE_URL, TALKS, WEBSITE_ID, personRef } from "../data/site";
+
+const offered = [
+  "Agentic engineering patterns for the enterprise",
+  "Context engineering for production AI agents",
+  "Deep agents: anatomy and when to use them",
+  "Token budget discipline and AI FinOps",
+  "Shift-left security in the agentic era",
+  "MCP and agentic banking",
+];
+
+// Only talks with a full date and location qualify as schema.org Events.
+const events = TALKS.filter((t) => t.date && t.location).map((t) => ({
+  "@type": "Event",
+  name: t.title ?? t.event,
+  startDate: t.date,
+  location: { "@type": "Place", name: t.location },
+  performer: personRef,
+  url: t.url,
+  eventStatus: "https://schema.org/EventScheduled",
+}));
+
+const schema = [
+  {
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/speaking/#page`,
+    name: "Speaking — Ravi Shah",
+    url: `${SITE_URL}/speaking/`,
+    about: personRef,
+    isPartOf: { "@id": WEBSITE_ID },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Speaking", item: `${SITE_URL}/speaking/` },
+      ],
+    },
+  },
+  ...events,
+];
+---
+
+<Base
+  title="Speaking — Ravi Shah · Talks on Agentic Engineering"
+  description="Talks and panels by Ravi Shah, Executive Architect at IBM Consulting UK&I, on agentic engineering, context engineering and Financial Services. Speaker bio and invitations."
+  path="/speaking/"
+  schema={schema}
+>
+  <PageHero eyebrow="Speaking" title="Talks &" strong="panels" sub="Agentic engineering, context engineering and delivery in regulated industries." />
+
+  <main class="page-main">
+    <div class="section-wrap">
+      <section aria-labelledby="talks-heading">
+        <h2 id="talks-heading">Past talks</h2>
+        <ul class="card-grid card-grid--2">
+          {
+            TALKS.map((t) => (
+              <li class="card">
+                <h3>{t.url ? <a href={t.url}>{t.title ?? t.event}</a> : (t.title ?? t.event)}</h3>
+                {t.title && <p>{t.event}</p>}
+                {t.summary && <p>{t.summary}</p>}
+                <p class="meta">
+                  {[t.topic, t.location, t.year].filter(Boolean).join(" · ")}
+                  {t.slides && <> · <a href={t.slides}>Slides</a></>}
+                  {t.video && <> · <a href={t.video}>Video</a></>}
+                </p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section aria-labelledby="topics-heading">
+        <h2 id="topics-heading">Topics I speak on</h2>
+        <ul class="topics">
+          {offered.map((t) => <li>{t}</li>)}
+        </ul>
+      </section>
+
+      <section aria-labelledby="bio-heading">
+        <h2 id="bio-heading">Speaker bio</h2>
+        <p class="lead">{BIO.short}</p>
+        <p>Headshot and longer bio: <a href="/about/#press-heading">press kit</a>.</p>
+      </section>
+
+      <section aria-labelledby="invite-heading">
+        <h2 id="invite-heading">Invite me to speak</h2>
+        <p class="lead">
+          Conferences, meetups, podcasts and internal engineering events — message me on
+          <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,118 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { BIO, SITE_URL, WEBSITE_ID, personRef } from "../../data/site";
+import { formatDate, getArticles, readingMinutes, type Article } from "../../data/writing";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article, articles } }));
+}
+
+interface Props {
+  article: Article;
+  articles: Article[];
+}
+
+const { article, articles } = Astro.props;
+const { title, description, pubDate, updatedDate, image, tags, repo, original, alsoOn } = article.data;
+const { Content } = await render(article);
+const url = `${SITE_URL}/writing/${article.id}/`;
+const copies = [original, ...alsoOn].filter((c) => c !== undefined);
+const related = articles.filter((a) => a.id !== article.id).slice(0, 3);
+
+const schema = {
+  "@type": "BlogPosting",
+  "@id": `${url}#article`,
+  headline: title,
+  description,
+  url,
+  mainEntityOfPage: url,
+  image: image ? `${SITE_URL}${image}` : undefined,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: personRef,
+  publisher: personRef,
+  isPartOf: { "@id": WEBSITE_ID },
+  inLanguage: "en-GB",
+  keywords: tags.length ? tags.join(", ") : undefined,
+  sameAs: copies.length ? copies.map((c) => c.url) : undefined,
+  wordCount: (article.body ?? "").split(/\s+/).filter(Boolean).length,
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Writing", item: `${SITE_URL}/writing/` },
+      { "@type": "ListItem", position: 3, name: title, item: url },
+    ],
+  },
+};
+---
+
+<Base
+  title={`${title} — Ravi Shah`}
+  description={description}
+  path={`/writing/${article.id}/`}
+  image={image}
+  type="article"
+  schema={schema}
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+>
+  <main class="article-main">
+    <article class="article">
+      <header class="article-header">
+        <p class="article-crumbs"><a href="/writing/">Writing</a></p>
+        <h1>{title}</h1>
+        <p class="article-dek">{description}</p>
+        <p class="article-meta">
+          By <a href="/about/" rel="author">Ravi Shah</a> ·
+          <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time> ·
+          {readingMinutes(article)} min read
+        </p>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <footer class="article-footer">
+        {
+          repo && (
+            <p class="article-repo">
+              Companion code: <a href={repo}>{repo.replace("https://github.com/", "github.com/")}</a>
+            </p>
+          )
+        }
+        {
+          copies.length > 0 && (
+            <p class="meta">
+              Also published on{" "}
+              {copies.map((c, i) => (
+                <>
+                  {i > 0 && " · "}
+                  <a href={c.url}>{c.name}</a>
+                </>
+              ))}
+            </p>
+          )
+        }
+        <div class="author-box">
+          <img src="/images/profile.jpg" alt="Ravi Shah" width="72" height="72" loading="lazy" />
+          <div>
+            <p class="author-name"><a href="/about/" rel="author">Ravi Shah</a></p>
+            <p>{BIO.short}</p>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <section class="section-wrap related" aria-labelledby="related-heading">
+      <h2 id="related-heading">More writing</h2>
+      <ul class="card-grid card-grid--3">
+        {related.map((a) => <ArticleCard article={a} />)}
+      </ul>
+    </section>
+  </main>
+</Base>

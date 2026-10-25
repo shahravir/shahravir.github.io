@@ -1,0 +1,126 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { BIO, PERSON, PROFILES, PROJECTS, SITE_URL, TALKS, personSchema } from "../data/site";
+import { getArticles } from "../data/writing";
+
+const articles = await getArticles();
+const topics = PERSON.knowsAbout.slice(0, 6).join(", ");
+
+const faqs = [
+  {
+    q: "Who is Ravi Shah?",
+    a: `${BIO.short}`,
+  },
+  {
+    q: "What does Ravi Shah write about?",
+    a: `Agentic design patterns, context engineering, deep agents, token budget discipline (AI FinOps), the Model Context Protocol (MCP) in banking, and shift-left security. ${articles.length} articles are collected on ravishah.dev/writing.`,
+  },
+  {
+    q: "Where has Ravi Shah spoken?",
+    a: TALKS.map((t) => `${t.event} (${t.year})`).join("; ") + ".",
+  },
+  {
+    q: "How can I contact Ravi Shah?",
+    a: "The quickest route is a LinkedIn message at linkedin.com/in/ravishah01. Speaking and writing invitations are welcome.",
+  },
+];
+
+const schema = [
+  {
+    "@type": "ProfilePage",
+    "@id": `${SITE_URL}/about/#page`,
+    url: `${SITE_URL}/about/`,
+    name: "About Ravi Shah",
+    mainEntity: personSchema(),
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "About", item: `${SITE_URL}/about/` },
+      ],
+    },
+  },
+];
+---
+
+<Base
+  title="About Ravi Shah — Executive Architect, IBM Consulting UK&I"
+  description={BIO.short}
+  path="/about/"
+  type="profile"
+  schema={schema}
+>
+  <PageHero eyebrow="About" title="Ravi Shah" strong="Executive Architect · Agentic engineering" sub={PERSON.identity} />
+
+  <main class="page-main">
+    <div class="section-wrap">
+      <section class="bio-grid" aria-labelledby="bio-heading">
+        <img class="bio-photo" src="/images/profile.jpg" alt="Ravi Shah, Executive Architect at IBM Consulting UK&I" width="800" height="800" />
+        <div>
+          <h2 id="bio-heading">Biography</h2>
+          {BIO.long.map((p) => <p class="bio-text">{p}</p>)}
+        </div>
+      </section>
+
+      <section aria-labelledby="facts-heading">
+        <h2 id="facts-heading">At a glance</h2>
+        <dl class="facts">
+          <dt>Role</dt>
+          <dd>{PERSON.jobTitle}, {PERSON.employer}</dd>
+          <dt>Based in</dt>
+          <dd>London, United Kingdom</dd>
+          <dt>Focus</dt>
+          <dd>{topics}</dd>
+          <dt>Writing</dt>
+          <dd><a href="/writing/">{articles.length} articles</a> — also syndicated to Medium, LinkedIn and DEV</dd>
+          <dt>Open source</dt>
+          <dd>
+            {PROJECTS.slice(0, 3).map((p, i) => <>{i > 0 && ", "}<a href={p.url}>{p.name}</a></>)} and <a href="/projects/">more</a>
+          </dd>
+          <dt>Speaking</dt>
+          <dd><a href="/speaking/">{TALKS.map((t) => `${t.event} (${t.year})`).join(" · ")}</a></dd>
+          <dt>Profiles</dt>
+          <dd>{PROFILES.map((p, i) => <>{i > 0 && " · "}<a href={p.url} rel="me">{p.name}</a></>)}</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="recent-heading">
+        <h2 id="recent-heading">Selected writing</h2>
+        <ul class="plain">
+          {articles.slice(0, 5).map((a) => <li><a href={`/writing/${a.id}/`}>{a.data.title}</a></li>)}
+        </ul>
+      </section>
+
+      <section aria-labelledby="press-heading">
+        <h2 id="press-heading">Press kit</h2>
+        <p class="lead">For event organisers and editors — please use these as-is and link to <a href="/">ravishah.dev</a>.</p>
+        <div class="card-grid card-grid--2">
+          <div class="card">
+            <h3>Short bio</h3>
+            <p class="copyable">{BIO.short}</p>
+          </div>
+          <div class="card">
+            <h3>Headshot</h3>
+            <p><a href="/images/profile.jpg" download>Download headshot (800 × 800 JPG)</a></p>
+            <p class="meta">One-line: {PERSON.name} — {PERSON.identity}</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently asked</h2>
+        <div class="faq">
+          {
+            faqs.map((f) => (
+              <>
+                <h3>{f.q}</h3>
+                <p>{f.a}</p>
+              </>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </main>
+</Base>

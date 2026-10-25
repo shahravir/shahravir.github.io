@@ -1,0 +1,147 @@
+---
+import Base from "../layouts/Base.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+import { BIO, PERSON, PROFILES, PROJECTS, SITE_URL, TALKS, WEBSITE_ID, PERSON_ID, personSchema } from "../data/site";
+import { getArticles } from "../data/writing";
+
+const latest = (await getArticles()).slice(0, 3);
+const featured = PROJECTS.slice(0, 2);
+
+const schema = [
+  personSchema(),
+  {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: `${SITE_URL}/`,
+    name: PERSON.name,
+    description: `${PERSON.name} — ${PERSON.tagline}`,
+    publisher: { "@id": PERSON_ID },
+    inLanguage: "en-GB",
+  },
+];
+---
+
+<Base
+  title="Ravi Shah — Executive Architect, IBM Consulting · Agentic Engineering"
+  description="Ravi Shah is an Executive Architect at IBM Consulting UK&I in London, specialising in agentic engineering for Financial Services. Articles, open-source code and talks."
+  path="/"
+  schema={schema}
+>
+  <section id="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Executive Architect · IBM Consulting UK&amp;I · London</div>
+      <h1 class="hero-title">Ravi Shah<strong>{PERSON.tagline}</strong></h1>
+      <p class="hero-sub">I build software with agents and ship agentic capability into production systems — patterns, security, and delivery at scale.</p>
+      <p class="hero-disclaimer">Personal site. Views are my own and do not represent IBM.</p>
+      <div class="hero-actions">
+        <a class="btn-p" href="/about/">About Ravi →</a>
+        <a class="btn-o" href="/writing/">Latest writing</a>
+      </div>
+      <div class="hero-social" aria-label="Profiles">
+        {PROFILES.map((p) => <a href={p.url} rel="me">{p.name}</a>)}
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <main>
+    <section id="about" class="section-band">
+      <div class="section-wrap">
+        <div class="reveal bio-grid">
+          <img class="bio-photo" src="/images/profile.jpg" alt="Ravi Shah" width="800" height="800" />
+          <div>
+            <div class="s-label">About</div>
+            <h2 class="s-title">Who is <strong>Ravi Shah?</strong></h2>
+            <p class="bio-text">{BIO.long[0]}</p>
+            <p class="bio-text">{BIO.long[1]}</p>
+            <a class="pillar-link" href="/about/">Full bio, talks and press kit →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="section-dark">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="s-label">Focus areas</div>
+          <h2 class="s-title">What I <strong>work on</strong></h2>
+          <ul class="topics">
+            {PERSON.knowsAbout.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing" class="section-band">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="s-label">Writing</div>
+          <h2 class="s-title">Latest <strong>articles</strong></h2>
+          <ul class="card-grid card-grid--3">
+            {latest.map((a) => <ArticleCard article={a} />)}
+          </ul>
+          <p class="more-link"><a class="pillar-link" href="/writing/">All articles →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section-dark">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="s-label">Open source</div>
+          <h2 class="s-title">Featured <strong>projects</strong></h2>
+          {
+            featured.map((p) => (
+              <div class="feature-card">
+                <h3><a href={p.url}>{p.name}</a></h3>
+                <p>{p.description}</p>
+                {p.article && <a class="pillar-link" href={`/writing/${p.article}/`}>Read the article →</a>}
+              </div>
+            ))
+          }
+          <p class="more-link"><a class="pillar-link" href="/projects/">All projects →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="speaking" class="section-band">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="s-label">Speaking</div>
+          <h2 class="s-title">Talks &amp; <strong>panels</strong></h2>
+          <ul class="card-grid card-grid--2">
+            {
+              TALKS.map((t) => (
+                <li class="card">
+                  <h3>{t.title ?? t.event}</h3>
+                  <p>{t.title ? t.event : t.topic}</p>
+                  <p class="meta">{t.year}</p>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="more-link"><a class="pillar-link" href="/speaking/">Speaking page and invitations →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="connect" class="section-dark">
+      <div class="section-wrap">
+        <div class="reveal">
+          <div class="connect-panel">
+            <h2>Stay in the loop</h2>
+            <p>Subscribe via <a href="/feed.xml">RSS</a>, follow on Medium or DEV, or connect on LinkedIn for new posts and talks.</p>
+            <a class="btn-p" href="https://www.linkedin.com/in/ravishah01/">Connect on LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>

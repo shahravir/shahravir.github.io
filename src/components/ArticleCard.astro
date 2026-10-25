@@ -1,0 +1,16 @@
+---
+import { formatDate, readingMinutes, type Article } from "../data/writing";
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const { title, description, pubDate } = article.data;
+---
+
+<li class="card">
+  <h3><a href={`/writing/${article.id}/`}>{title}</a></h3>
+  <p>{description}</p>
+  <p class="meta"><time datetime={pubDate.toISOString()}>{formatDate(pubDate, "short")}</time> · {readingMinutes(article)} min read</p>
+</li>

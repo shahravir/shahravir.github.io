@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { NOW_UPDATED, SITE_URL, personRef } from "../data/site";
+
+const updated = new Date(NOW_UPDATED);
+
+const schema = {
+  "@type": "WebPage",
+  "@id": `${SITE_URL}/now/#page`,
+  name: "Now — Ravi Shah",
+  url: `${SITE_URL}/now/`,
+  about: personRef,
+  dateModified: updated.toISOString(),
+};
+---
+
+<Base
+  title="Now — What Ravi Shah Is Working On"
+  description="What Ravi Shah, Executive Architect at IBM Consulting UK&I, is focused on right now: deep agents, agentic engineering in Financial Services, and open-source companions."
+  path="/now/"
+  schema={schema}
+>
+  <PageHero eyebrow="Now" title="What I'm" strong="working on" />
+
+  <main class="page-main">
+    <div class="section-wrap prose-narrow">
+      <p class="meta">
+        Updated <time datetime={NOW_UPDATED}>{updated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</time>
+        · London
+      </p>
+
+      <section aria-labelledby="work-heading">
+        <h2 id="work-heading">Day job</h2>
+        <p class="lead">Executive Architect at IBM Consulting UK&amp;I — shipping agentic capability into production systems for Financial Services clients.</p>
+      </section>
+
+      <section aria-labelledby="writing-heading">
+        <h2 id="writing-heading">Writing</h2>
+        <ul class="plain">
+          <li>
+            A series on deep agents. Part one, <a href="/writing/a-deep-agent-anatomy/">A deep agent anatomy</a>, is out; next up is
+            mixing deep agents with traditional orchestration workflows.
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="building-heading">
+        <h2 id="building-heading">Building</h2>
+        <ul class="plain">
+          <li><a href="https://github.com/shahravir/deep-agent-anatomy">deep-agent-anatomy</a> — runnable shallow vs. deep agent examples</li>
+          <li><a href="https://github.com/shahravir/carbon-compute">carbon-compute</a> — carbon accounting for AI, cloud and LLM workloads</li>
+          <li><a href="https://github.com/shahravir/llm-token-budget">llm-token-budget</a> — keeping LLM token spend under control</li>
+        </ul>
+      </section>
+
+      <p class="meta">This is a <a href="https://nownownow.com/about">now page</a>.</p>
+    </div>
+  </main>
+</Base>
