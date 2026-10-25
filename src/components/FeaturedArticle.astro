@@ -1,0 +1,39 @@
+---
+import { Picture } from "astro:assets";
+import { formatDate, readingMinutes, type Article } from "../data/writing";
+
+interface Props {
+  article: Article;
+  eyebrow?: string;
+  headingLevel?: "h2" | "h3";
+}
+
+const { article, eyebrow = "Latest article", headingLevel = "h3" } = Astro.props;
+const { title, description, pubDate, image } = article.data;
+const Heading = headingLevel;
+---
+
+<div class="featured">
+  <article class="featured-card">
+    {
+      image && (
+        <Picture
+          src={image}
+          formats={["avif", "webp"]}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 60rem) 34rem, 100vw"
+          alt=""
+          loading="lazy"
+        />
+      )
+    }
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <Heading><a href={`/writing/${article.id}/`}>{title}</a></Heading>
+      <p>{description}</p>
+      <p class="meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time> · {readingMinutes(article)} min read
+      </p>
+    </div>
+  </article>
+</div>

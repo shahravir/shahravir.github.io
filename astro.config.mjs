@@ -5,6 +5,7 @@ export default defineConfig({
   trailingSlash: "always",
   build: { format: "directory" },
   markdown: {
-    shikiConfig: { theme: "github-dark" },
+    // High-contrast variants keep comments and punctuation above WCAG AA in both themes.
+    shikiConfig: { themes: { light: "github-light-high-contrast", dark: "github-dark-high-contrast" } },
   },
 });

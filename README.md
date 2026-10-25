@@ -19,7 +19,7 @@ npm run build    # outputs dist/
    title: "Article title"
    description: "One or two sentences, under 160 characters — used for search snippets and social cards."
    pubDate: "2026-11-01"
-   image: "/images/writing/<slug>/og.jpg"   # optional, 1200px wide JPG/PNG
+   image: "../../assets/writing/<slug>.jpg"   # optional cover; auto-optimised to AVIF/WebP + social JPG
    tags: ["agentic-engineering"]
    repo: "https://github.com/shahravir/<repo>"   # optional companion code
    alsoOn:                                         # fill in after syndicating
@@ -29,7 +29,7 @@ npm run build    # outputs dist/
    Article body in Markdown.
    ```
 
-2. Put images in `public/images/writing/<slug>/` (WebP for body images, JPG for `og.jpg`).
+2. Put the cover in `src/assets/writing/<slug>.jpg` and body images in `public/images/writing/<slug>/` (WebP).
 3. Push to `main`. The site, sitemap, RSS feed and `llms.txt` rebuild automatically, and IndexNow notifies Bing.
 4. Then syndicate: Medium → **Import a story** with the ravishah.dev URL (sets the canonical link); DEV → set `canonical_url`; LinkedIn → post a summary linking back.
 
@@ -40,5 +40,6 @@ npm run build    # outputs dist/
 | Bio, profiles, talks, projects, nav | `src/data/site.ts` |
 | Pages | `src/pages/` |
 | Shared head, nav, footer, SEO tags | `src/layouts/Base.astro` |
-| Styles and scripts | `public/styles.css`, `public/hero.js`, `public/hub.js` |
+| Styles (light/dark tokens, layout, prose) | `src/styles/global.css` |
+| Featured/list article components | `src/components/` |
 | AI summary / sitemap / RSS | `src/pages/llms.txt.ts`, `sitemap.xml.ts`, `feed.xml.ts` |

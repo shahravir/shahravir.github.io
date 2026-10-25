@@ -2,7 +2,7 @@
 title: "Eight Patterns Every Agentic Engineer Should Know (And Why Most Teams Only Use Two)"
 description: "A field guide to agentic patterns — why most enterprise teams default to only two, and what to adopt next."
 pubDate: "2026-05-18T07:55:08.000Z"
-image: "/images/writing/eight-agentic-engineering-patterns/og.jpg"
+image: "../../assets/writing/eight-agentic-engineering-patterns.jpg"
 tags:
   - "generative-ai-solution"
   - "agentic-ai"

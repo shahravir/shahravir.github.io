@@ -1,11 +1,15 @@
 ---
+import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import ArticleCard from "../components/ArticleCard.astro";
-import { BIO, PERSON, PROFILES, PROJECTS, SITE_URL, TALKS, WEBSITE_ID, PERSON_ID, personSchema } from "../data/site";
+import FeaturedArticle from "../components/FeaturedArticle.astro";
+import profilePhoto from "../assets/profile.jpg";
+import { PERSON, PERSON_ID, PROFILES, PROJECTS, SITE_URL, TALKS, WEBSITE_ID, personSchema } from "../data/site";
 import { getArticles } from "../data/writing";
 
-const latest = (await getArticles()).slice(0, 3);
-const featured = PROJECTS.slice(0, 2);
+const [latest, ...rest] = await getArticles();
+const recent = rest.slice(0, 3);
+const featuredProjects = PROJECTS.slice(0, 3);
 
 const schema = [
   personSchema(),
@@ -27,121 +31,89 @@ const schema = [
   path="/"
   schema={schema}
 >
-  <section id="hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Executive Architect · IBM Consulting UK&amp;I · London</div>
-      <h1 class="hero-title">Ravi Shah<strong>{PERSON.tagline}</strong></h1>
-      <p class="hero-sub">I build software with agents and ship agentic capability into production systems — patterns, security, and delivery at scale.</p>
-      <p class="hero-disclaimer">Personal site. Views are my own and do not represent IBM.</p>
-      <div class="hero-actions">
-        <a class="btn-p" href="/about/">About Ravi →</a>
-        <a class="btn-o" href="/writing/">Latest writing</a>
-      </div>
-      <div class="hero-social" aria-label="Profiles">
-        {PROFILES.map((p) => <a href={p.url} rel="me">{p.name}</a>)}
-      </div>
+  <section class="wrap hero" aria-label="Introduction">
+    <div class="hero-photo">
+      <Picture
+        src={profilePhoto}
+        formats={["avif", "webp"]}
+        widths={[240, 480]}
+        sizes="(min-width: 40rem) 15rem, 9rem"
+        alt="Portrait of Ravi Shah"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
-      <span>Scroll</span>
+    <div>
+      <h1 id="hero-name">Ravi Shah</h1>
+      <p class="hero-role">Executive Architect · IBM Consulting UK&amp;I · London</p>
+      <p class="hero-pitch">
+        I build software with AI agents and ship agentic capability into production for Financial Services — and write about
+        what works: agentic patterns, context engineering, token budgets and security.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={`/writing/${latest.id}/`}>Read the latest article →</a>
+        <a class="btn" href="/about/">About me</a>
+      </div>
+      <ul class="pill-links" aria-label="Profiles">
+        {PROFILES.map((p) => <li><a href={p.url} rel="me">{p.name}</a></li>)}
+      </ul>
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <main>
-    <section id="about" class="section-band">
-      <div class="section-wrap">
-        <div class="reveal bio-grid">
-          <img class="bio-photo" src="/images/profile.jpg" alt="Ravi Shah" width="800" height="800" />
-          <div>
-            <div class="s-label">About</div>
-            <h2 class="s-title">Who is <strong>Ravi Shah?</strong></h2>
-            <p class="bio-text">{BIO.long[0]}</p>
-            <p class="bio-text">{BIO.long[1]}</p>
-            <a class="pillar-link" href="/about/">Full bio, talks and press kit →</a>
-          </div>
-        </div>
+  <section class="section" aria-labelledby="writing-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="writing-heading">Writing</h2>
+        <a href="/writing/">All articles →</a>
       </div>
-    </section>
+      <FeaturedArticle article={latest} />
+      <ul class="post-list" style="margin-top:1.5rem">
+        {recent.map((a) => <ArticleCard article={a} />)}
+      </ul>
+    </div>
+  </section>
 
-    <section id="focus" class="section-dark">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="s-label">Focus areas</div>
-          <h2 class="s-title">What I <strong>work on</strong></h2>
-          <ul class="topics">
-            {PERSON.knowsAbout.map((t) => <li>{t}</li>)}
-          </ul>
-        </div>
+  <section class="section" aria-labelledby="projects-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="projects-heading">Open source</h2>
+        <a href="/projects/">All projects →</a>
       </div>
-    </section>
+      <ul class="card-grid">
+        {
+          featuredProjects.map((p) => (
+            <li class="project-card">
+              <h3><a href={p.url}>{p.name}</a></h3>
+              <p>{p.description}</p>
+              <ul class="tags" aria-label="Tags">
+                {p.tags.map((t) => <li>{t}</li>)}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-    <section id="writing" class="section-band">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="s-label">Writing</div>
-          <h2 class="s-title">Latest <strong>articles</strong></h2>
-          <ul class="card-grid card-grid--3">
-            {latest.map((a) => <ArticleCard article={a} />)}
-          </ul>
-          <p class="more-link"><a class="pillar-link" href="/writing/">All articles →</a></p>
-        </div>
+  <section class="section" aria-labelledby="speaking-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="speaking-heading">Speaking</h2>
+        <a href="/speaking/">Invite me to speak →</a>
       </div>
-    </section>
-
-    <section id="projects" class="section-dark">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="s-label">Open source</div>
-          <h2 class="s-title">Featured <strong>projects</strong></h2>
-          {
-            featured.map((p) => (
-              <div class="feature-card">
-                <h3><a href={p.url}>{p.name}</a></h3>
-                <p>{p.description}</p>
-                {p.article && <a class="pillar-link" href={`/writing/${p.article}/`}>Read the article →</a>}
+      <ul class="talk-list">
+        {
+          TALKS.map((t) => (
+            <li>
+              <span class="year">{t.year}</span>
+              <div>
+                <strong>{t.title ?? t.event}</strong>
+                {(t.title || t.topic) && <span> — {t.title ? t.event : t.topic}</span>}
               </div>
-            ))
-          }
-          <p class="more-link"><a class="pillar-link" href="/projects/">All projects →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="speaking" class="section-band">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="s-label">Speaking</div>
-          <h2 class="s-title">Talks &amp; <strong>panels</strong></h2>
-          <ul class="card-grid card-grid--2">
-            {
-              TALKS.map((t) => (
-                <li class="card">
-                  <h3>{t.title ?? t.event}</h3>
-                  <p>{t.title ? t.event : t.topic}</p>
-                  <p class="meta">{t.year}</p>
-                </li>
-              ))
-            }
-          </ul>
-          <p class="more-link"><a class="pillar-link" href="/speaking/">Speaking page and invitations →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <section id="connect" class="section-dark">
-      <div class="section-wrap">
-        <div class="reveal">
-          <div class="connect-panel">
-            <h2>Stay in the loop</h2>
-            <p>Subscribe via <a href="/feed.xml">RSS</a>, follow on Medium or DEV, or connect on LinkedIn for new posts and talks.</p>
-            <a class="btn-p" href="https://www.linkedin.com/in/ravishah01/">Connect on LinkedIn</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </Base>

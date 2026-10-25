@@ -2,7 +2,7 @@
 title: "Token Budget Discipline: A Developer’s Playbook"
 description: "A practical playbook for treating model quotas like engineering budgets: route requests, reserve premium capacity, and avoid cooldown stalls."
 pubDate: "2026-05-26T05:43:48.000Z"
-image: "/images/writing/token-budget-discipline/og.jpg"
+image: "../../assets/writing/token-budget-discipline.jpg"
 tags:
   - "software-engineering"
   - "generative-ai-tools"

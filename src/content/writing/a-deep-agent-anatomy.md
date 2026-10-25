@@ -2,7 +2,7 @@
 title: "A deep agent anatomy"
 description: "The four components behind deep agents — a detailed system prompt, a planning tool, sub-agents and a file system — and how they differ from shallow ReAct agents."
 pubDate: "2026-06-25T11:06:42.000Z"
-image: "/images/writing/a-deep-agent-anatomy/og.jpg"
+image: "../../assets/writing/a-deep-agent-anatomy.jpg"
 tags:
   - "agentic-engineering"
   - "deep-agent"

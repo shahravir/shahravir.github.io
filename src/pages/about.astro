@@ -1,6 +1,7 @@
 ---
+import { Picture } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import PageHero from "../components/PageHero.astro";
+import profilePhoto from "../assets/profile.jpg";
 import { BIO, PERSON, PROFILES, PROJECTS, SITE_URL, TALKS, personSchema } from "../data/site";
 import { getArticles } from "../data/writing";
 
@@ -8,18 +9,12 @@ const articles = await getArticles();
 const topics = PERSON.knowsAbout.slice(0, 6).join(", ");
 
 const faqs = [
-  {
-    q: "Who is Ravi Shah?",
-    a: `${BIO.short}`,
-  },
+  { q: "Who is Ravi Shah?", a: BIO.short },
   {
     q: "What does Ravi Shah write about?",
     a: `Agentic design patterns, context engineering, deep agents, token budget discipline (AI FinOps), the Model Context Protocol (MCP) in banking, and shift-left security. ${articles.length} articles are collected on ravishah.dev/writing.`,
   },
-  {
-    q: "Where has Ravi Shah spoken?",
-    a: TALKS.map((t) => `${t.event} (${t.year})`).join("; ") + ".",
-  },
+  { q: "Where has Ravi Shah spoken?", a: TALKS.map((t) => `${t.event} (${t.year})`).join("; ") + "." },
   {
     q: "How can I contact Ravi Shah?",
     a: "The quickest route is a LinkedIn message at linkedin.com/in/ravishah01. Speaking and writing invitations are welcome.",
@@ -44,83 +39,79 @@ const schema = [
 ];
 ---
 
-<Base
-  title="About Ravi Shah — Executive Architect, IBM Consulting UK&I"
-  description={BIO.short}
-  path="/about/"
-  type="profile"
-  schema={schema}
->
-  <PageHero eyebrow="About" title="Ravi Shah" strong="Executive Architect · Agentic engineering" sub={PERSON.identity} />
-
-  <main class="page-main">
-    <div class="section-wrap">
-      <section class="bio-grid" aria-labelledby="bio-heading">
-        <img class="bio-photo" src="/images/profile.jpg" alt="Ravi Shah, Executive Architect at IBM Consulting UK&I" width="800" height="800" />
-        <div>
-          <h2 id="bio-heading">Biography</h2>
-          {BIO.long.map((p) => <p class="bio-text">{p}</p>)}
-        </div>
-      </section>
-
-      <section aria-labelledby="facts-heading">
-        <h2 id="facts-heading">At a glance</h2>
-        <dl class="facts">
-          <dt>Role</dt>
-          <dd>{PERSON.jobTitle}, {PERSON.employer}</dd>
-          <dt>Based in</dt>
-          <dd>London, United Kingdom</dd>
-          <dt>Focus</dt>
-          <dd>{topics}</dd>
-          <dt>Writing</dt>
-          <dd><a href="/writing/">{articles.length} articles</a> — also syndicated to Medium, LinkedIn and DEV</dd>
-          <dt>Open source</dt>
-          <dd>
-            {PROJECTS.slice(0, 3).map((p, i) => <>{i > 0 && ", "}<a href={p.url}>{p.name}</a></>)} and <a href="/projects/">more</a>
-          </dd>
-          <dt>Speaking</dt>
-          <dd><a href="/speaking/">{TALKS.map((t) => `${t.event} (${t.year})`).join(" · ")}</a></dd>
-          <dt>Profiles</dt>
-          <dd>{PROFILES.map((p, i) => <>{i > 0 && " · "}<a href={p.url} rel="me">{p.name}</a></>)}</dd>
-        </dl>
-      </section>
-
-      <section aria-labelledby="recent-heading">
-        <h2 id="recent-heading">Selected writing</h2>
-        <ul class="plain">
-          {articles.slice(0, 5).map((a) => <li><a href={`/writing/${a.id}/`}>{a.data.title}</a></li>)}
+<Base title="About Ravi Shah — Executive Architect, IBM Consulting UK&I" description={BIO.short} path="/about/" type="profile" schema={schema}>
+  <div class="wrap stack-lg" style="padding-block: clamp(2.5rem, 6vw, 4rem)">
+    <section class="about-intro" aria-labelledby="about-heading">
+      <Picture
+        src={profilePhoto}
+        formats={["avif", "webp"]}
+        widths={[240, 480]}
+        sizes="(min-width: 40rem) 13rem, 10rem"
+        alt="Portrait of Ravi Shah"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div class="stack">
+        <h1 id="about-heading" style="font-size: var(--step-3)">About Ravi Shah</h1>
+        <p class="lead muted">{PERSON.identity}</p>
+        {BIO.long.map((p) => <p>{p}</p>)}
+        <ul class="pill-links" aria-label="Profiles">
+          {PROFILES.map((p) => <li><a href={p.url} rel="me">{p.name}</a></li>)}
         </ul>
-      </section>
+      </div>
+    </section>
 
-      <section aria-labelledby="press-heading">
-        <h2 id="press-heading">Press kit</h2>
-        <p class="lead">For event organisers and editors — please use these as-is and link to <a href="/">ravishah.dev</a>.</p>
-        <div class="card-grid card-grid--2">
-          <div class="card">
-            <h3>Short bio</h3>
-            <p class="copyable">{BIO.short}</p>
-          </div>
-          <div class="card">
-            <h3>Headshot</h3>
-            <p><a href="/images/profile.jpg" download>Download headshot (800 × 800 JPG)</a></p>
-            <p class="meta">One-line: {PERSON.name} — {PERSON.identity}</p>
-          </div>
-        </div>
-      </section>
+    <section aria-labelledby="facts-heading">
+      <h2 id="facts-heading">At a glance</h2>
+      <dl class="facts">
+        <dt>Role</dt>
+        <dd>{PERSON.jobTitle}, {PERSON.employer}</dd>
+        <dt>Based in</dt>
+        <dd>London, United Kingdom</dd>
+        <dt>Focus</dt>
+        <dd>{topics}</dd>
+        <dt>Writing</dt>
+        <dd><a href="/writing/">{articles.length} articles</a> — syndicated to Medium, LinkedIn and DEV</dd>
+        <dt>Open source</dt>
+        <dd>{PROJECTS.slice(0, 3).map((p, i) => <>{i > 0 && ", "}<a href={p.url}>{p.name}</a></>)} and <a href="/projects/">more</a></dd>
+        <dt>Speaking</dt>
+        <dd><a href="/speaking/">{TALKS.map((t) => `${t.event} (${t.year})`).join(" · ")}</a></dd>
+      </dl>
+    </section>
 
-      <section aria-labelledby="faq-heading">
-        <h2 id="faq-heading">Frequently asked</h2>
-        <div class="faq">
-          {
-            faqs.map((f) => (
-              <>
-                <h3>{f.q}</h3>
-                <p>{f.a}</p>
-              </>
-            ))
-          }
+    <section aria-labelledby="recent-heading">
+      <h2 id="recent-heading">Selected writing</h2>
+      <ul class="stack" style="padding-left:1.2rem">
+        {articles.slice(0, 5).map((a) => <li><a href={`/writing/${a.id}/`}>{a.data.title}</a></li>)}
+      </ul>
+    </section>
+
+    <section aria-labelledby="press-heading">
+      <h2 id="press-heading">Press kit</h2>
+      <p class="muted" style="margin-bottom:1rem">For event organisers and editors — please use these as-is and link to ravishah.dev.</p>
+      <div class="card-grid">
+        <div class="panel">
+          <h3>Short bio</h3>
+          <p>{BIO.short}</p>
         </div>
-      </section>
-    </div>
-  </main>
+        <div class="panel">
+          <h3>Headshot &amp; one-liner</h3>
+          <p><a href="/images/profile.jpg" download>Download headshot (800 × 800 JPG)</a></p>
+          <p style="margin-top:0.5rem">{PERSON.name} — {PERSON.identity}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently asked</h2>
+      {
+        faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </section>
+  </div>
 </Base>

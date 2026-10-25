@@ -2,10 +2,13 @@
 import Base from "../../layouts/Base.astro";
 import PageHero from "../../components/PageHero.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
+import FeaturedArticle from "../../components/FeaturedArticle.astro";
 import { SITE_URL, WEBSITE_ID, personRef } from "../../data/site";
 import { getArticles } from "../../data/writing";
 
 const articles = await getArticles();
+const [latest, ...older] = articles;
+const byYear = Map.groupBy(older, (a) => a.data.pubDate.getFullYear());
 
 const schema = {
   "@type": "CollectionPage",
@@ -41,29 +44,28 @@ const schema = {
   schema={schema}
 >
   <PageHero
-    eyebrow="Writing"
-    title="Practical notes on"
-    strong="agentic delivery"
-    sub="Patterns, security and context engineering from building with agents in Financial Services."
+    title="Writing"
+    sub={`${articles.length} practical articles on building with AI agents — patterns, context engineering, token budgets and security.`}
   />
 
-  <main class="page-main">
-    <div class="section-wrap">
-      <section aria-labelledby="articles-heading">
-        <h2 id="articles-heading">All articles ({articles.length})</h2>
-        <ul class="card-grid card-grid--2">
-          {articles.map((a) => <ArticleCard article={a} />)}
-        </ul>
-      </section>
+  <div class="wrap">
+    <FeaturedArticle article={latest} headingLevel="h2" />
 
-      <section aria-labelledby="channels-heading">
-        <h2 id="channels-heading">Also published on</h2>
-        <p class="lead">
-          Articles appear here first and are syndicated to <a href="https://medium.com/@shah.ravir">Medium</a>,
-          <a href="https://www.linkedin.com/in/ravishah01/recent-activity/articles/">LinkedIn</a> and
-          <a href="https://dev.to/shahravir">DEV</a>. Subscribe via <a href="/feed.xml">RSS</a>.
-        </p>
-      </section>
-    </div>
-  </main>
+    {
+      [...byYear.entries()].map(([year, posts]) => (
+        <section aria-labelledby={`y${year}`}>
+          <h2 class="year-heading" id={`y${year}`}>{year}</h2>
+          <ul class="post-list">
+            {posts.map((a) => <ArticleCard article={a} />)}
+          </ul>
+        </section>
+      ))
+    }
+
+    <p class="muted" style="margin-top:2.5rem">
+      Articles are published here first and syndicated to <a href="https://medium.com/@shah.ravir">Medium</a>,
+      <a href="https://www.linkedin.com/in/ravishah01/recent-activity/articles/">LinkedIn</a> and
+      <a href="https://dev.to/shahravir">DEV</a>. Subscribe via <a href="/feed.xml">RSS</a>.
+    </p>
+  </div>
 </Base>

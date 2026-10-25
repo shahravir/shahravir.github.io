@@ -2,7 +2,7 @@
 title: "Deliver resilient digital experiences using the circuit breaker pattern"
 description: "Applying the circuit breaker resilience pattern to deliver fault-tolerant digital experiences under failure."
 pubDate: "2022-11-27T21:33:45.000Z"
-image: "/images/writing/circuit-breaker-pattern/og.jpg"
+image: "../../assets/writing/circuit-breaker-pattern.jpg"
 original: {"name":"Medium","url":"https://medium.com/@shah.ravir/deliver-resilient-digital-features-using-the-circuit-breaker-pattern-38208eb75b94"}
 ---
 > Humans are inherently optimistic creatures and often do not sufficiently plan for failures, and we sometimes do the same with our software systems. The circuit breaker pattern provokes software implementation teams to prepare for failures so that we adjust user experiences appropriately.

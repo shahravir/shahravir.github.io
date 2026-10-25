@@ -2,7 +2,7 @@
 title: "IBM Project Bob Shifts Security Left with AI-Powered Code Scans"
 description: "How AI-powered Gitleaks scanning moves security from a pipeline gate into the developer's PR loop — shift-left security for the agentic era."
 pubDate: "2026-05-19T10:29:33.000Z"
-image: "/images/writing/ibm-project-bob-shift-left-security/og.jpg"
+image: "../../assets/writing/ibm-project-bob-shift-left-security.jpg"
 tags:
   - "security"
   - "ibm"
@@ -12,7 +12,7 @@ tags:
 repo: "https://github.com/shahravir/gitleaks-repo-scan-agent"
 original: {"name":"Medium","url":"https://medium.com/@shah.ravir/ibm-project-bob-shifts-security-left-with-ai-powered-code-scans-9a9bd9622915"}
 ---
-![Project Bob: Shifting Security Left, Properly This Time](/images/writing/ibm-project-bob-shift-left-security/1.webp)
+![](/images/writing/ibm-project-bob-shift-left-security/1.webp)
 *Project Bob: Shifting Security Left, Properly This Time*
 
 Every CISO team’s dream — “shift-left security” for a decade. In practice, “shift left” has usually meant “shift left to the developer’s PR — where it now blocks them at 5pm on a Friday.” That’s not shift-left. That’s shift-late-to-the-same-place.

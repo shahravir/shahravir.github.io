@@ -1,26 +1,32 @@
 ---
+import { getImage } from "astro:assets";
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import ArticleCard from "../../components/ArticleCard.astro";
+import profilePhoto from "../../assets/profile.jpg";
 import { BIO, SITE_URL, WEBSITE_ID, personRef } from "../../data/site";
 import { formatDate, getArticles, readingMinutes, type Article } from "../../data/writing";
 
 export async function getStaticPaths() {
   const articles = await getArticles();
-  return articles.map((article) => ({ params: { slug: article.id }, props: { article, articles } }));
+  return articles.map((article, i) => ({
+    params: { slug: article.id },
+    props: { article, newer: articles[i - 1], older: articles[i + 1] },
+  }));
 }
 
 interface Props {
   article: Article;
-  articles: Article[];
+  newer?: Article;
+  older?: Article;
 }
 
-const { article, articles } = Astro.props;
+const { article, newer, older } = Astro.props;
 const { title, description, pubDate, updatedDate, image, tags, repo, original, alsoOn } = article.data;
 const { Content } = await render(article);
 const url = `${SITE_URL}/writing/${article.id}/`;
 const copies = [original, ...alsoOn].filter((c) => c !== undefined);
-const related = articles.filter((a) => a.id !== article.id).slice(0, 3);
+const avatar = await getImage({ src: profilePhoto, width: 128, height: 128, format: "webp" });
+const schemaImage = image ? new URL((await getImage({ src: image, width: 1200, format: "jpg" })).src, SITE_URL).href : undefined;
 
 const schema = {
   "@type": "BlogPosting",
@@ -29,7 +35,7 @@ const schema = {
   description,
   url,
   mainEntityOfPage: url,
-  image: image ? `${SITE_URL}${image}` : undefined,
+  image: schemaImage,
   datePublished: pubDate.toISOString(),
   dateModified: (updatedDate ?? pubDate).toISOString(),
   author: personRef,
@@ -60,59 +66,77 @@ const schema = {
   publishedTime={pubDate}
   modifiedTime={updatedDate}
 >
-  <main class="article-main">
-    <article class="article">
-      <header class="article-header">
-        <p class="article-crumbs"><a href="/writing/">Writing</a></p>
-        <h1>{title}</h1>
-        <p class="article-dek">{description}</p>
-        <p class="article-meta">
-          By <a href="/about/" rel="author">Ravi Shah</a> ·
-          <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time> ·
-          {readingMinutes(article)} min read
-        </p>
-      </header>
-
-      <div class="prose">
-        <Content />
-      </div>
-
-      <footer class="article-footer">
-        {
-          repo && (
-            <p class="article-repo">
-              Companion code: <a href={repo}>{repo.replace("https://github.com/", "github.com/")}</a>
-            </p>
-          )
-        }
-        {
-          copies.length > 0 && (
-            <p class="meta">
-              Also published on{" "}
-              {copies.map((c, i) => (
-                <>
-                  {i > 0 && " · "}
-                  <a href={c.url}>{c.name}</a>
-                </>
-              ))}
-            </p>
-          )
-        }
-        <div class="author-box">
-          <img src="/images/profile.jpg" alt="Ravi Shah" width="72" height="72" loading="lazy" />
+  <article class="narrow">
+    <header class="article-header">
+      <p class="crumb"><a href="/writing/">← All writing</a></p>
+      <h1>{title}</h1>
+      <p class="article-dek">{description}</p>
+      <div class="byline">
+        <img src={avatar.src} alt="" width="40" height="40" />
+        <div>
+          <a href="/about/" rel="author">Ravi Shah</a>
           <div>
-            <p class="author-name"><a href="/about/" rel="author">Ravi Shah</a></p>
-            <p>{BIO.short}</p>
+            <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time> · {readingMinutes(article)} min read
           </div>
         </div>
-      </footer>
-    </article>
+      </div>
+    </header>
 
-    <section class="section-wrap related" aria-labelledby="related-heading">
-      <h2 id="related-heading">More writing</h2>
-      <ul class="card-grid card-grid--3">
-        {related.map((a) => <ArticleCard article={a} />)}
-      </ul>
-    </section>
-  </main>
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="article-footer">
+      {
+        (repo || copies.length > 0) && (
+          <div class="panel">
+            {repo && (
+              <p>
+                <strong>Companion code:</strong> <a href={repo}>{repo.replace("https://github.com/", "github.com/")}</a>
+              </p>
+            )}
+            {copies.length > 0 && (
+              <p class="meta" style={repo ? "margin-top:0.4rem" : undefined}>
+                Also published on{" "}
+                {copies.map((c, i) => (
+                  <>
+                    {i > 0 && " · "}
+                    <a href={c.url}>{c.name}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </div>
+        )
+      }
+
+      <div class="author-box">
+        <img src={avatar.src} alt="" width="64" height="64" loading="lazy" />
+        <div>
+          <p class="author-name">Written by <a href="/about/" rel="author">Ravi Shah</a></p>
+          <p>{BIO.short}</p>
+          <p style="margin-top:0.6rem"><a href="https://www.linkedin.com/in/ravishah01/">Connect on LinkedIn →</a></p>
+        </div>
+      </div>
+
+      {
+        (newer || older) && (
+          <nav class="pager" aria-label="More articles">
+            {older && (
+              <a href={`/writing/${older.id}/`} rel="prev">
+                <span>← Previous</span>
+                {older.data.title}
+              </a>
+            )}
+            {newer && (
+              <a class="next" href={`/writing/${newer.id}/`} rel="next">
+                <span>Next →</span>
+                {newer.data.title}
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </footer>
+  </article>
 </Base>

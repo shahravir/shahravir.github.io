@@ -3,14 +3,19 @@ import { formatDate, readingMinutes, type Article } from "../data/writing";
 
 interface Props {
   article: Article;
+  headingLevel?: "h2" | "h3";
 }
 
-const { article } = Astro.props;
+const { article, headingLevel = "h3" } = Astro.props;
 const { title, description, pubDate } = article.data;
+const Heading = headingLevel;
 ---
 
-<li class="card">
-  <h3><a href={`/writing/${article.id}/`}>{title}</a></h3>
-  <p>{description}</p>
-  <p class="meta"><time datetime={pubDate.toISOString()}>{formatDate(pubDate, "short")}</time> · {readingMinutes(article)} min read</p>
+<li>
+  <time datetime={pubDate.toISOString()}>{formatDate(pubDate, "short")}</time>
+  <div>
+    <Heading><a href={`/writing/${article.id}/`}>{title}</a></Heading>
+    <p>{description}</p>
+    <p class="meta">{readingMinutes(article)} min read</p>
+  </div>
 </li>

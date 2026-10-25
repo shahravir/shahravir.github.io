@@ -2,7 +2,7 @@
 title: "Patterns for Context Engineering in Agentic Applications"
 description: "Architectural patterns for supplying and structuring context so production AI agents behave reliably at scale."
 pubDate: "2026-05-19T10:23:16.000Z"
-image: "/images/writing/context-engineering-patterns-agentic-applications/og.jpg"
+image: "../../assets/writing/context-engineering-patterns-agentic-applications.jpg"
 tags:
   - "agentic-engineering"
   - "generative-ai-solution"
@@ -41,7 +41,7 @@ A conversation that starts at 2,000 tokens and grows by 500 tokens per exchange 
 
 That’s not 5,000 tokens total. That’s ~45,000 tokens processed across ten exchanges — because each exchange processes everything that came before. The cost compounds like a snowball effect.
 
-![Token consumption compounds quadratically — roughly O(n2). The blue line shows tokens per inference growing linearly, but the orange line reveals the real story — cumulative tokens consumed across the conversation explode as context accumulates.](/images/writing/context-engineering-patterns-agentic-applications/1.webp)
+![](/images/writing/context-engineering-patterns-agentic-applications/1.webp)
 *Token consumption compounds quadratically — roughly O(n2). The blue line shows tokens per inference growing linearly, but the orange line reveals the real story — cumulative tokens consumed across the conversation explode as context accumulates.*
 
 And this is conservative. Real production conversations look more like this:
@@ -54,7 +54,7 @@ And this is conservative. Real production conversations look more like this:
 
 You’re at 16,700 tokens before the model generates a single word of output. If that conversation runs for 20 turns? You’ve burned through 400,000 input tokens. At $3 per million, that’s $1.20 per conversation. Scale that to 10,000 daily conversations, and you’re looking at ~$12,000 per day — ~$360,000 per month — on context overhead alone.
 
-![At 10,000 conversations/day with an average of 30 turns, you’re looking at $13,800/day or $414,000/month in token costs alone.](/images/writing/context-engineering-patterns-agentic-applications/2.webp)
+![](/images/writing/context-engineering-patterns-agentic-applications/2.webp)
 *At 10,000 conversations/day with an average of 30 turns, you’re looking at $13,800/day or $414,000/month in token costs alone.*
 
 ## The Cost Curve
@@ -63,7 +63,7 @@ Token costs aren’t staying flat. While the headline story is “AI is getting 
 
 **1.Thinking models are the new default.** With Claude Opus 4.7’s “xhigh” effort level, GPT-5.5’s reasoning mode, and Gemini 3.1 Pro’s deep thinking capabilities, reasoning models don’t just process tokens — they think in tokens. A Claude Opus 4.7 xhigh query that outputs 500 tokens might consume 25,000–50,000 thinking tokens internally. The user sees a thoughtful response. Your finance team sees a 50–80x token multiplier. Worse still, Claude Opus 4.7 shipped with Tokenizer 2.0, which produces up to 35% more tokens for identical input text compared to Opus 4.6. The headline price didn’t change ($5/$25 per million tokens), but your actual bill went up overnight. This is what AI FinOps teams call “**silent inflation**” — the tokenizer changed, the math changed, but the dashboard still shows the same per-token rate.
 
-![Token consumption across the latest May 2026 frontier models. Reasoning modes consume 3–4x more tokens than standard inference.](/images/writing/context-engineering-patterns-agentic-applications/3.webp)
+![](/images/writing/context-engineering-patterns-agentic-applications/3.webp)
 *Token consumption across the latest May 2026 frontier models. Reasoning modes consume 3–4x more tokens than standard inference.*
 
 **2\. Agentic workflows multiply context.** When your AI agent calls three tools, each tool call is a separate inference. Each inference gets the full context. A five-step agentic task with 10,000 tokens of context isn’t 10,000 tokens — it’s 50,000 tokens. The agent architecture itself becomes a token amplifier.

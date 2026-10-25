@@ -16,13 +16,7 @@ const schema = {
     itemListElement: PROJECTS.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: {
-        "@type": "SoftwareSourceCode",
-        name: p.name,
-        description: p.description,
-        codeRepository: p.url,
-        author: personRef,
-      },
+      item: { "@type": "SoftwareSourceCode", name: p.name, description: p.description, codeRepository: p.url, author: personRef },
     })),
   },
   breadcrumb: {
@@ -41,37 +35,23 @@ const schema = {
   path="/projects/"
   schema={schema}
 >
-  <PageHero eyebrow="Projects" title="Open-source" strong="demos & tools" sub="Agents, security and Financial Services prototypes you can run and extend." />
+  <PageHero title="Projects" sub="Open-source agents, security tools and Financial Services prototypes you can run and extend." />
 
-  <main class="page-main">
-    <div class="section-wrap">
-      <section aria-labelledby="repos-heading">
-        <h2 id="repos-heading">Repositories</h2>
-        <ul class="card-grid card-grid--2">
-          {
-            PROJECTS.map((p) => (
-              <li class="card">
-                <h3><a href={p.url}>{p.name}</a></h3>
-                <p>{p.description}</p>
-                <p class="meta">
-                  {p.tags.join(" · ")}
-                  {p.article && (
-                    <>
-                      {" · "}
-                      <a href={`/writing/${p.article}/`}>Article</a>
-                    </>
-                  )}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section aria-labelledby="more-heading">
-        <h2 id="more-heading">More on GitHub</h2>
-        <p class="lead">All repositories: <a href="https://github.com/shahravir?tab=repositories">github.com/shahravir</a></p>
-      </section>
-    </div>
-  </main>
+  <div class="wrap">
+    <ul class="card-grid">
+      {
+        PROJECTS.map((p) => (
+          <li class="project-card">
+            <h2><a href={p.url}>{p.name}</a></h2>
+            <p>{p.description}</p>
+            <ul class="tags" aria-label="Tags">
+              {p.tags.map((t) => <li>{t}</li>)}
+            </ul>
+            {p.article && <a class="card-link" href={`/writing/${p.article}/`}>Read the article →</a>}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="muted" style="margin-top:2rem">More on GitHub: <a href="https://github.com/shahravir?tab=repositories">github.com/shahravir</a></p>
+  </div>
 </Base>

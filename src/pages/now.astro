@@ -21,40 +21,35 @@ const schema = {
   path="/now/"
   schema={schema}
 >
-  <PageHero eyebrow="Now" title="What I'm" strong="working on" />
+  <PageHero title="Now">
+    <p class="meta">
+      Updated <time datetime={NOW_UPDATED}>{updated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</time> · London
+    </p>
+  </PageHero>
 
-  <main class="page-main">
-    <div class="section-wrap prose-narrow">
-      <p class="meta">
-        Updated <time datetime={NOW_UPDATED}>{updated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</time>
-        · London
+  <div class="wrap stack-lg" style="max-width: var(--measure); margin-inline: auto">
+    <section aria-labelledby="work-heading">
+      <h2 id="work-heading">Day job</h2>
+      <p>Executive Architect at IBM Consulting UK&amp;I — shipping agentic capability into production systems for Financial Services clients.</p>
+    </section>
+
+    <section aria-labelledby="writing-heading">
+      <h2 id="writing-heading">Writing</h2>
+      <p>
+        A series on deep agents. Part one, <a href="/writing/a-deep-agent-anatomy/">A deep agent anatomy</a>, is out; next up is mixing deep
+        agents with traditional orchestration workflows.
       </p>
+    </section>
 
-      <section aria-labelledby="work-heading">
-        <h2 id="work-heading">Day job</h2>
-        <p class="lead">Executive Architect at IBM Consulting UK&amp;I — shipping agentic capability into production systems for Financial Services clients.</p>
-      </section>
+    <section aria-labelledby="building-heading">
+      <h2 id="building-heading">Building</h2>
+      <ul class="stack" style="padding-left:1.2rem">
+        <li><a href="https://github.com/shahravir/deep-agent-anatomy">deep-agent-anatomy</a> — runnable shallow vs. deep agent examples</li>
+        <li><a href="https://github.com/shahravir/carbon-compute">carbon-compute</a> — carbon accounting for AI, cloud and LLM workloads</li>
+        <li><a href="https://github.com/shahravir/llm-token-budget">llm-token-budget</a> — keeping LLM token spend under control</li>
+      </ul>
+    </section>
 
-      <section aria-labelledby="writing-heading">
-        <h2 id="writing-heading">Writing</h2>
-        <ul class="plain">
-          <li>
-            A series on deep agents. Part one, <a href="/writing/a-deep-agent-anatomy/">A deep agent anatomy</a>, is out; next up is
-            mixing deep agents with traditional orchestration workflows.
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="building-heading">
-        <h2 id="building-heading">Building</h2>
-        <ul class="plain">
-          <li><a href="https://github.com/shahravir/deep-agent-anatomy">deep-agent-anatomy</a> — runnable shallow vs. deep agent examples</li>
-          <li><a href="https://github.com/shahravir/carbon-compute">carbon-compute</a> — carbon accounting for AI, cloud and LLM workloads</li>
-          <li><a href="https://github.com/shahravir/llm-token-budget">llm-token-budget</a> — keeping LLM token spend under control</li>
-        </ul>
-      </section>
-
-      <p class="meta">This is a <a href="https://nownownow.com/about">now page</a>.</p>
-    </div>
-  </main>
+    <p class="meta">This is a <a href="https://nownownow.com/about">now page</a>.</p>
+  </div>
 </Base>

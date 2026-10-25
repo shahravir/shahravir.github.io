@@ -2,7 +2,7 @@
 title: "The Hallucination Is in Your Architecture, Not the Model"
 description: "When generative AI fails in production, the root cause is often system design — not model choice."
 pubDate: "2026-05-18T07:43:25.000Z"
-image: "/images/writing/hallucination-is-in-your-architecture/og.jpg"
+image: "../../assets/writing/hallucination-is-in-your-architecture.jpg"
 tags:
   - "context-engineering"
   - "ai-reliability"
@@ -14,7 +14,7 @@ alsoOn:
   - name: "LinkedIn"
     url: "https://www.linkedin.com/pulse/hallucination-your-architecture-mode-ravi-shah-fmnye"
 ---
-![Model Hellucination is real — don’t complain about it. manage it instead.](/images/writing/hallucination-is-in-your-architecture/1.webp)
+![](/images/writing/hallucination-is-in-your-architecture/1.webp)
 *Model Hellucination is real — don’t complain about it. manage it instead.*
 
 A team deploys a generative AI solution. It goes well in the demo. Then it goes into production and starts producing outputs that are confidently wrong — wrong account details, wrong policy interpretation, wrong procedure. The post-mortem lands in the same place every time: *“the model hallucinated.”*

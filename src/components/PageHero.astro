@@ -1,23 +1,14 @@
 ---
 interface Props {
-  eyebrow: string;
   title: string;
-  strong?: string;
   sub?: string;
 }
 
-const { eyebrow, title, strong, sub } = Astro.props;
+const { title, sub } = Astro.props;
 ---
 
-<section id="hero" class="page-hero-compact">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">{eyebrow}</div>
-    <h1 class="hero-title">{title}{strong && <strong>{strong}</strong>}</h1>
-    {sub && <p class="hero-sub">{sub}</p>}
-    <slot />
-  </div>
-</section>
-
-<div class="divider"></div>
+<header class="page-header wrap">
+  <h1>{title}</h1>
+  {sub && <p>{sub}</p>}
+  <slot />
+</header>

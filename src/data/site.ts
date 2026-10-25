@@ -124,10 +124,10 @@ export const PROJECTS = [
 export const NOW_UPDATED = "2026-10-25";
 
 export const NAV = [
-  { href: "/about/", label: "About" },
   { href: "/writing/", label: "Writing" },
   { href: "/projects/", label: "Projects" },
   { href: "/speaking/", label: "Speaking" },
+  { href: "/about/", label: "About" },
 ];
 
 export function personSchema() {

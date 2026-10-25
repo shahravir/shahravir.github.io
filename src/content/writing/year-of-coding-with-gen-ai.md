@@ -3,10 +3,10 @@ title: "A year of coding with Gen AI: 1.4B+ tokens later"
 description: "Lessons from a year of building with Cursor and Gen AI — what 1.4 billion+ tokens of real development work taught me about agentic workflows."
 pubDate: "2026-01-02T12:08:55.000Z"
 updatedDate: "2026-05-28T19:20:02.000Z"
-image: "/images/writing/year-of-coding-with-gen-ai/og.jpg"
+image: "../../assets/writing/year-of-coding-with-gen-ai.jpg"
 original: {"name":"LinkedIn","url":"https://www.linkedin.com/pulse/year-coding-gen-ai-14b-tokens-later-ravi-shah-nwawe"}
 ---
-![Article content](/images/writing/year-of-coding-with-gen-ai/1.webp)
+![](/images/writing/year-of-coding-with-gen-ai/1.webp)
 
 When I started using Cursor in June, I wasn’t sure what to expect. Fast-forward a year: 1.4B+ tokens later, and my engineering workflow has fundamentally changed.
 

@@ -49,50 +49,49 @@ const schema = [
   path="/speaking/"
   schema={schema}
 >
-  <PageHero eyebrow="Speaking" title="Talks &" strong="panels" sub="Agentic engineering, context engineering and delivery in regulated industries." />
-
-  <main class="page-main">
-    <div class="section-wrap">
-      <section aria-labelledby="talks-heading">
-        <h2 id="talks-heading">Past talks</h2>
-        <ul class="card-grid card-grid--2">
-          {
-            TALKS.map((t) => (
-              <li class="card">
-                <h3>{t.url ? <a href={t.url}>{t.title ?? t.event}</a> : (t.title ?? t.event)}</h3>
-                {t.title && <p>{t.event}</p>}
-                {t.summary && <p>{t.summary}</p>}
-                <p class="meta">
-                  {[t.topic, t.location, t.year].filter(Boolean).join(" · ")}
-                  {t.slides && <> · <a href={t.slides}>Slides</a></>}
-                  {t.video && <> · <a href={t.video}>Video</a></>}
-                </p>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section aria-labelledby="topics-heading">
-        <h2 id="topics-heading">Topics I speak on</h2>
-        <ul class="topics">
-          {offered.map((t) => <li>{t}</li>)}
-        </ul>
-      </section>
-
-      <section aria-labelledby="bio-heading">
-        <h2 id="bio-heading">Speaker bio</h2>
-        <p class="lead">{BIO.short}</p>
-        <p>Headshot and longer bio: <a href="/about/#press-heading">press kit</a>.</p>
-      </section>
-
-      <section aria-labelledby="invite-heading">
-        <h2 id="invite-heading">Invite me to speak</h2>
-        <p class="lead">
-          Conferences, meetups, podcasts and internal engineering events — message me on
-          <a href="https://www.linkedin.com/in/ravishah01/">LinkedIn</a>.
-        </p>
-      </section>
+  <PageHero title="Speaking" sub="Talks on agentic engineering, context engineering and delivery in regulated industries.">
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://www.linkedin.com/in/ravishah01/">Invite me to speak →</a>
+      <a class="btn" href="/about/#press-heading">Speaker bio &amp; headshot</a>
     </div>
-  </main>
+  </PageHero>
+
+  <div class="wrap stack-lg">
+    <section aria-labelledby="talks-heading">
+      <h2 id="talks-heading">Past talks</h2>
+      <ul class="talk-list">
+        {
+          TALKS.map((t) => (
+            <li>
+              <span class="year">{t.year}</span>
+              <div>
+                <strong>{t.url ? <a href={t.url}>{t.title ?? t.event}</a> : (t.title ?? t.event)}</strong>
+                {(t.title || t.topic) && <span> — {t.title ? t.event : t.topic}</span>}
+                {t.summary && <p class="muted">{t.summary}</p>}
+                {(t.slides || t.video) && (
+                  <p class="meta">
+                    {t.slides && <a href={t.slides}>Slides</a>}
+                    {t.slides && t.video && " · "}
+                    {t.video && <a href={t.video}>Video</a>}
+                  </p>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="topics-heading">
+      <h2 id="topics-heading">Topics I speak on</h2>
+      <ul class="tags" style="gap:0.5rem">
+        {offered.map((t) => <li style="font-size:0.92rem;padding:0.35rem 0.85rem">{t}</li>)}
+      </ul>
+    </section>
+
+    <section aria-labelledby="bio-heading">
+      <h2 id="bio-heading">Speaker bio</h2>
+      <p class="lead">{BIO.short}</p>
+    </section>
+  </div>
 </Base>
