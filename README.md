@@ -43,3 +43,4 @@ npm run build    # outputs dist/
 | Styles (light/dark tokens, layout, prose) | `src/styles/global.css` |
 | Featured/list article components | `src/components/` |
 | AI summary / sitemap / RSS | `src/pages/llms.txt.ts`, `sitemap.xml.ts`, `feed.xml.ts` |
+| Analytics (Umami, cookie-free; profile and repo clicks via `data-umami-event`) | `src/layouts/Base.astro` |

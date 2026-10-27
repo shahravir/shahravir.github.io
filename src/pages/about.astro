@@ -56,7 +56,7 @@ const schema = [
         <p class="lead muted">{PERSON.identity}</p>
         {BIO.long.map((p) => <p>{p}</p>)}
         <ul class="pill-links" aria-label="Profiles">
-          {PROFILES.map((p) => <li><a href={p.url} rel="me">{p.name}</a></li>)}
+          {PROFILES.map((p) => <li><a href={p.url} rel="me" data-umami-event="Profile click" data-umami-event-profile={p.name} data-umami-event-from="about">{p.name}</a></li>)}
         </ul>
       </div>
     </section>
@@ -73,7 +73,7 @@ const schema = [
         <dt>Writing</dt>
         <dd><a href="/writing/">{articles.length} articles</a> — syndicated to Medium, LinkedIn and DEV</dd>
         <dt>Open source</dt>
-        <dd>{PROJECTS.slice(0, 3).map((p, i) => <>{i > 0 && ", "}<a href={p.url}>{p.name}</a></>)} and <a href="/projects/">more</a></dd>
+        <dd>{PROJECTS.slice(0, 3).map((p, i) => <>{i > 0 && ", "}<a href={p.url} data-umami-event="Repo click" data-umami-event-repo={p.name} data-umami-event-from="about">{p.name}</a></>)} and <a href="/projects/">more</a></dd>
         <dt>Speaking</dt>
         <dd><a href="/speaking/">{TALKS.map((t) => `${t.event} (${t.year})`).join(" · ")}</a></dd>
       </dl>

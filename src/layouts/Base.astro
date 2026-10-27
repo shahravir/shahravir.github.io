@@ -71,6 +71,20 @@ const speculation = { prerender: [{ where: { href_matches: "/*" }, eagerness: "m
     </script>
     <!-- Prerender same-site pages on hover/press for near-instant navigation (Speculation Rules API). -->
     <script is:inline type="speculationrules" set:html={JSON.stringify(speculation)} />
+    <!-- Cookie-free analytics (Umami). Loaded once the page is actually shown, so prerendered pages nobody opens are not counted. -->
+    <script is:inline>
+      (function () {
+        function load() {
+          var s = document.createElement("script");
+          s.src = "https://cloud.umami.is/script.js";
+          s.dataset.websiteId = "c6d661f1-6053-404b-afff-61d03038420c";
+          s.dataset.domains = "ravishah.dev";
+          document.head.appendChild(s);
+        }
+        if (document.prerendering) document.addEventListener("prerenderingchange", load, { once: true });
+        else load();
+      })();
+    </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
@@ -132,12 +146,12 @@ const speculation = { prerender: [{ where: { href_matches: "/*" }, eagerness: "m
           <section aria-labelledby="footer-elsewhere">
             <h2 id="footer-elsewhere">Elsewhere</h2>
             <ul>
-              {PROFILES.map((p) => <li><a href={p.url} rel="me">{p.name}</a></li>)}
+              {PROFILES.map((p) => <li><a href={p.url} rel="me" data-umami-event="Profile click" data-umami-event-profile={p.name} data-umami-event-from="footer">{p.name}</a></li>)}
               <li><a href="/feed.xml">RSS feed</a></li>
             </ul>
           </section>
         </div>
-        <p class="footer-note">© {new Date().getFullYear()} Ravi Shah · London. Personal site — views are my own and do not represent IBM.</p>
+        <p class="footer-note">© {new Date().getFullYear()} Ravi Shah · London. Personal site — views are my own and do not represent IBM. Visits are counted with cookie-free Umami analytics.</p>
       </div>
     </footer>
 

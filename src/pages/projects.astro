@@ -42,7 +42,7 @@ const schema = {
       {
         PROJECTS.map((p) => (
           <li class="project-card">
-            <h2><a href={p.url}>{p.name}</a></h2>
+            <h2><a href={p.url} data-umami-event="Repo click" data-umami-event-repo={p.name} data-umami-event-from="projects">{p.name}</a></h2>
             <p>{p.description}</p>
             <ul class="tags" aria-label="Tags">
               {p.tags.map((t) => <li>{t}</li>)}

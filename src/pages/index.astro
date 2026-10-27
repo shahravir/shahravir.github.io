@@ -55,7 +55,7 @@ const schema = [
         <a class="btn" href="/about/">About me</a>
       </div>
       <ul class="pill-links" aria-label="Profiles">
-        {PROFILES.map((p) => <li><a href={p.url} rel="me">{p.name}</a></li>)}
+        {PROFILES.map((p) => <li><a href={p.url} rel="me" data-umami-event="Profile click" data-umami-event-profile={p.name} data-umami-event-from="home">{p.name}</a></li>)}
       </ul>
     </div>
   </section>
@@ -83,7 +83,7 @@ const schema = [
         {
           featuredProjects.map((p) => (
             <li class="project-card">
-              <h3><a href={p.url}>{p.name}</a></h3>
+              <h3><a href={p.url} data-umami-event="Repo click" data-umami-event-repo={p.name} data-umami-event-from="home">{p.name}</a></h3>
               <p>{p.description}</p>
               <ul class="tags" aria-label="Tags">
                 {p.tags.map((t) => <li>{t}</li>)}

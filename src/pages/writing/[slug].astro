@@ -92,7 +92,7 @@ const schema = {
           <div class="panel">
             {repo && (
               <p>
-                <strong>Companion code:</strong> <a href={repo}>{repo.replace("https://github.com/", "github.com/")}</a>
+                <strong>Companion code:</strong> <a href={repo} data-umami-event="Repo click" data-umami-event-repo={repo.split("/").pop()} data-umami-event-from="article">{repo.replace("https://github.com/", "github.com/")}</a>
               </p>
             )}
             {copies.length > 0 && (
